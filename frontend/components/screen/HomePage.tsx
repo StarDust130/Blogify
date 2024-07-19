@@ -147,8 +147,8 @@ const HomePage = () => {
           <div className="mt-12 text-center">
             <motion.div whileHover={{ scale: 1.05 }}>
               <Link href="/signup" className="text-xl font-bold">
-                <Button>
-                  Get Started Today <ArrowRight className="ml-2" size={20} />
+                <Button variant={"link"}>
+                  Explore More <ArrowRight size={16} className="ml-1" />
                 </Button>
               </Link>
             </motion.div>
