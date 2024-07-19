@@ -33,20 +33,19 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="relative flex items-center rounded-full shadow-sm">
-        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        <Input
-          type="text"
-          placeholder="Search Blogs"
-          className="pl-12 pr-14 py-2 w-full bg-transparent rounded-full placeholder-gray-400 border-2"
-        />
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 text-gray-400">
-          <span className="font-semibold text-sm">⌘</span>
-          <span className="font-light text-sm">K</span>
-        </div>
-      </div>
-
       <div className="flex items-center gap-3">
+        <div className="relative flex items-center rounded-full shadow-sm">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Search Blogs"
+            className="pl-12 pr-14 py-2 w-full bg-transparent rounded-lg placeholder-gray-400 border-2"
+          />
+          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 text-gray-400">
+            <span className="font-semibold text-sm">⌘</span>
+            <span className="font-light text-sm">K</span>
+          </div>
+        </div>
         <Link href="/login">
           <Button variant="ghost" className=" transition">
             Login

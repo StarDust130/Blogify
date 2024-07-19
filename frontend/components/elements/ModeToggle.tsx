@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
+import { MoonIcon as Moon, SunIcon as Sun } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 
