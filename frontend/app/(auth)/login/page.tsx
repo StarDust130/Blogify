@@ -1,6 +1,8 @@
+import LoginPage from "@/components/screen/LoginPage"
+
 const page = () => {
   return (
-    <div>page</div>
+    <LoginPage />
   )
 }
 export default page

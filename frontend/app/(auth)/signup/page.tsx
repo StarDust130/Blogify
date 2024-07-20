@@ -1,6 +1,6 @@
+import SignupPage from "@/components/screen/SignupPage";
+
 const page = () => {
-  return (
-    <div>page</div>
-  )
+  return <SignupPage />;
 }
 export default page
