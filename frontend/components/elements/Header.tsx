@@ -49,9 +49,7 @@ const Header = () => {
         <div className="flex items-center gap-5 cursor-pointer">
           <Link href="/" className="flex items-center">
             <Image src="/logo-bg.png" alt="logo" width={50} height={50} />
-            <h1 className="text-xl hidden md:block shadow-sm font-bold">
-              Blogify
-            </h1>
+            <h1 className="text-xl hidden md:block font-bold">Blogify</h1>
           </Link>
 
           <div className="md:flex items-center gap-5 hidden ">
@@ -62,9 +60,7 @@ const Header = () => {
               <h1 className="font-bold  text-sm hover:text-primary">About</h1>
             </Link>
             <Link href="/projects">
-              <h1 className="font-bold  text-sm hover:text-primary">
-                Projects
-              </h1>
+              <h1 className="font-bold text-sm hover:text-primary">Projects</h1>
             </Link>
           </div>
         </div>

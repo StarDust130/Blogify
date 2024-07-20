@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
   Command,
@@ -13,9 +14,9 @@ import {
 import React from "react";
 
 interface SearchProps {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    }
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const Search = ({ open, setOpen }: SearchProps) => {
   React.useEffect(() => {

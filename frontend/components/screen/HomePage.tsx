@@ -12,11 +12,41 @@ import {
   FaMusic,
   FaFilm,
 } from "react-icons/fa";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveRight } from "lucide-react";
+import { HeroHighlight, Highlight } from "../ui/hero-highlight";
 
 const HomePage = () => {
   return (
     <>
+      <HeroHighlight>
+        <div className="flex flex-col items-center justify-center gap-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: [20, -5, 0] }}
+            transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
+            className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+          >
+            Explore a universe of stories and unleash your creativity in our
+            vibrant{" "}
+            <Highlight className="text-black dark:text-white">
+              community
+            </Highlight>
+            .
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
+          >
+            <Link href="/signup">
+              <Button className="transition w-40 h-10 md:text-lg">
+                Get Started <MoveRight className="ml-2" size={12} />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </HeroHighlight>
+
       <section>
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <motion.div
