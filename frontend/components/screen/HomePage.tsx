@@ -25,8 +25,8 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Welcome to Our World of Creativity and Innovation
+            <h2 className="md:text-3xl font-bold text-center md: text-2xl">
+              Explore Creativity & Innovation
             </h2>
           </motion.div>
 

@@ -36,9 +36,9 @@ export function ModeToggle() {
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: 180, scale: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute"
+            className="absolute "
           >
-            <Sun className="h-[1.5rem] w-[1.5rem]" />
+            <Sun className="md:h-[1.5rem] md:w-[1.5rem] h-[1rem] w-[1rem]" />
           </motion.div>
         ) : (
           <motion.div
@@ -47,9 +47,9 @@ export function ModeToggle() {
             animate={{ opacity: 1, rotate: 0, scale: 1 }}
             exit={{ opacity: 0, rotate: 180, scale: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute"
+            className="absolute "
           >
-            <Moon className="h-[1.5rem] w-[1.5rem] " />
+            <Moon className="md:h-[1.5rem] md:w-[1.5rem] h-[1rem] w-[1rem] " />
           </motion.div>
         )}
       </AnimatePresence>
