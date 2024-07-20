@@ -8,11 +8,13 @@ import { Input } from "../ui/input";
 import { Menu, Search } from "lucide-react";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -92,45 +94,32 @@ const Header = () => {
         </div>
 
         <div className="flex md:hidden gap-1 justify-center items-center">
-          <ModeToggle />
           <Link href="/login">
-            <Button variant="ghost" size={"sm"} className="transition">
+            <Button variant="secondary" size={"sm"} className="transition">
               Login
             </Button>
           </Link>
-          <Sheet>
-            <SheetTrigger>
+          <ModeToggle />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              {" "}
               <Menu />
-            </SheetTrigger>
-
-            <SheetContent className="p-4">
-              <SheetHeader className="space-y-4">
-                <Link href="/" className="flex items-center space-x-1">
-                  <h1 className="text-xl font-bold tracking-tight">Blogify</h1>
-                </Link>
-                <nav className="flex flex-col space-y-2">
-                  <Link
-                    href="/blogs"
-                    className="text-lg font-semibold hover:text-primary transition duration-300"
-                  >
-                    Blogs
-                  </Link>
-                  <Link
-                    href="/about"
-                    className="text-lg font-semibold hover:text-primary transition duration-300"
-                  >
-                    About
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="text-lg font-semibold hover:text-primary transition duration-300"
-                  >
-                    Projects
-                  </Link>
-                </nav>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Link href="/blogs">
+                <DropdownMenuItem> Blogs</DropdownMenuItem>
+              </Link>
+              <Link href="/about">
+                <DropdownMenuItem> About</DropdownMenuItem>
+              </Link>
+              <Link href="/projects">
+                <DropdownMenuItem> Projects</DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
