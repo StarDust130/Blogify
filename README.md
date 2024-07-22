@@ -1,1 +1,1 @@
-# StarDocs
+# Blogify
