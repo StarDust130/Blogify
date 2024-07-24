@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SignupPage from "../screen/SignupPage";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -84,9 +85,7 @@ const Header = () => {
               Login
             </Button>
           </Link>
-          <Link href="/signup">
-            <Button className="transition">Sign Up</Button>
-          </Link>
+          <SignupPage />
           <ModeToggle />
         </div>
 

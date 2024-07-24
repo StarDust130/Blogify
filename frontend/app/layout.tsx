@@ -5,16 +5,11 @@ import Header from "@/components/elements/Header";
 import Footer from "@/components/elements/Footer";
 import { ThemeProvider } from "@/components/elements/theme-provider";
 
-const inter = Merriweather({ subsets: ["latin"]
-  ,
-  weight: ["400", "700"],
-
-
- });
+const inter = Merriweather({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "Blogify",
-  description: "A cool Blog platform. Start writing today.",
+  description: "A cool Blog  platform. Start writing today.",
   icons: {
     icon: "./logo.jpeg",
   },
