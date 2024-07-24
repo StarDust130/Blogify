@@ -26,6 +26,7 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import Image from "next/image";
 import { Camera } from "lucide-react";
+import Link from "next/link";
 
 const SignupPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -58,16 +59,6 @@ const SignupPage = () => {
   return (
     <div className="  flex items-center justify-center">
       <Modal>
-        <ModalTrigger className=" flex justify-center group/modal-btn">
-          <Button className="relative group text-center overflow-hidden">
-            <span className="block transition-transform duration-500 ease-in-out group-hover:translate-x-40">
-              Signup
-            </span>
-            <div className="absolute inset-0 flex text-xs items-center justify-center transition-transform duration-500 ease-in-out -translate-x-40 group-hover:translate-x-0 z-20">
-              Let&apos;s Go!
-            </div>
-          </Button>
-        </ModalTrigger>
         <ModalBody>
           <ModalContent>
             <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
@@ -181,7 +172,12 @@ const SignupPage = () => {
                   </div>
                 </div>
                 <div className=" flex justify-between">
-                  <div className="text-sm">Already Have Account login</div>
+                  <div className="text-sm">
+                    Already Have Account{" "}
+                    <Link href={"/login"} className="text-blue-500">
+                      Login
+                    </Link>
+                  </div>
                   <Button type="submit">Submit</Button>
                 </div>
               </form>

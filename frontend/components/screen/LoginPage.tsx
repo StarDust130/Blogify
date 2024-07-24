@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
+import Link from "next/link";
 
 const LoginPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -55,14 +56,6 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center">
       <Modal>
-        <ModalTrigger className=" flex justify-center group/modal-btn">
-          <Button
-            className="relative group text-center overflow-hidden"
-            variant={"ghost"}
-          >
-            <span className="block">Login</span>
-          </Button>
-        </ModalTrigger>
         <ModalBody>
           <ModalContent>
             <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
@@ -104,7 +97,13 @@ const LoginPage = () => {
                   )}
                 />
 
-                <div className=" flex justify-end">
+                <div className=" flex justify-between">
+                  <div className="text-sm">
+                    Create Account{" "}
+                    <Link href={"/signup"} className="text-blue-500">
+                      Sign Up
+                    </Link>
+                  </div>
                   <Button type="submit">Submit</Button>
                 </div>
               </form>

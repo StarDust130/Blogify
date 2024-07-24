@@ -16,8 +16,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import SignupPage from "../screen/SignupPage";
-import LoginPage from "../screen/LoginPage";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -81,10 +79,14 @@ const Header = () => {
               <span className="font-light text-sm">K</span>
             </div>
           </div>
-
-          <LoginPage />
-
-          <SignupPage />
+          <Link href="/login">
+            <Button variant="ghost" className="transition">
+              Login
+            </Button>
+          </Link>
+          <Link href="/signup">
+            <Button className="transition">Sign Up</Button>
+          </Link>
           <ModeToggle />
         </div>
 
@@ -94,7 +96,11 @@ const Header = () => {
             className="mr-3"
             size={18}
           />
-          <LoginPage />
+          <Link href="/login">
+            <Button variant="secondary" size={"sm"} className="transition">
+              Login
+            </Button>
+          </Link>
           <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger>

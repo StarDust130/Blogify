@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import React, {
   ReactNode,
   createContext,
@@ -18,7 +19,7 @@ interface ModalContextType {
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <ModalContext.Provider value={{ open, setOpen }}>
@@ -68,6 +69,7 @@ export const ModalBody = ({
   className?: string;
 }) => {
   const { open } = useModal();
+  const router = useRouter();
 
   useEffect(() => {
     if (open) {
@@ -78,8 +80,7 @@ export const ModalBody = ({
   }, [open]);
 
   const modalRef = useRef(null);
-  const { setOpen } = useModal();
-  useOutsideClick(modalRef, () => setOpen(false));
+  useOutsideClick(modalRef, () => router.push("/"));
 
   return (
     <AnimatePresence>
@@ -191,10 +192,10 @@ const Overlay = ({ className }: { className?: string }) => {
 };
 
 const CloseIcon = () => {
-  const { setOpen } = useModal();
+  const router = useRouter();
   return (
     <button
-      onClick={() => setOpen(false)}
+      onClick={() => router.push("/")}
       className="absolute top-4 right-4 group"
     >
       <svg
