@@ -25,11 +25,10 @@ import { Button } from "../ui/button";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import Image from "next/image";
-import { Camera, Eye, EyeOff } from "lucide-react";
+import { Camera } from "lucide-react";
 
 const SignupPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleImageChange = (e: any) => {
     if (e.target.files && e.target.files[0]) {
@@ -73,7 +72,7 @@ const SignupPage = () => {
           <ModalContent>
             <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
               Sign Up to
-              <span className="px-1 mx-1 py-0.5 rounded-md  dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
+              <span className="px-1 mx-1 py-0.5 rounded-md bg-sky-100  dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
                 Blogify!
               </span>{" "}
             </h4>
@@ -165,28 +164,15 @@ const SignupPage = () => {
                       control={form.control}
                       name="password"
                       render={({ field }) => (
-                        <FormItem className="relative">
+                        <FormItem>
                           <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="********"
                               {...field}
-                              type={showPassword ? "text" : "password"}
+                              type="text"
                             />
                           </FormControl>
-                          {showPassword ? (
-                            <EyeOff
-                              size={20}
-                              className="absolute right-3 top-[47%] transform   cursor-pointer"
-                              onClick={() => setShowPassword(false)}
-                            />
-                          ) : (
-                            <Eye
-                              size={20}
-                              className="absolute right-3 top-[47%] transform  cursor-pointer"
-                              onClick={() => setShowPassword(true)}
-                            />
-                          )}
 
                           <FormMessage />
                         </FormItem>
@@ -194,7 +180,8 @@ const SignupPage = () => {
                     />
                   </div>
                 </div>
-                <div className=" flex justify-end">
+                <div className=" flex justify-between">
+                  <div className="text-sm">Already Have Account login</div>
                   <Button type="submit">Submit</Button>
                 </div>
               </form>

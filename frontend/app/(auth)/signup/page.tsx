@@ -1,6 +1,8 @@
-import SignupPage from "@/components/screen/SignupPage";
+import SignupPage from "@/components/screen/SignupPage"
 
-const page = () => {
-  return <SignupPage />;
+const Signup = () => {
+  return (
+    <SignupPage />
+  )
 }
-export default page
+export default Signup
