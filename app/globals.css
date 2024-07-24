@@ -60,13 +60,22 @@
   }
 }
 
-.no-visible-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
+/* styles/globals.css */
+body {
+  overflow-x: hidden; /* Example setting */
+   overflow-y: auto;
 }
 
-.no-visible-scrollbar::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
