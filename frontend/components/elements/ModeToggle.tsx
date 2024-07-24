@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MoonIcon as Moon, SunIcon as Sun } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
+import { MoonStar } from "lucide-react";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -49,7 +50,7 @@ export function ModeToggle() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute "
           >
-            <Moon className="md:h-[1.5rem] md:w-[1.5rem] h-[1rem] w-[1rem] " />
+            <MoonStar  className="md:h-[1.5rem] md:w-[1.5rem] h-[1rem] w-[1rem] " />
           </motion.div>
         )}
       </AnimatePresence>
