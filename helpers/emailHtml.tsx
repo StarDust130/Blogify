@@ -54,7 +54,7 @@ const getEmailHtml = (emailType: any, hashToken: any) => {
           <h2 style="color: #007bff; text-align: center;">Reset Your Password</h2>
           <p style="color: #333333; text-align: center;">We received a request to reset your password. Click the button below to reset your password:</p>
           <div style="text-align: center; margin: 20px 0;">
-            <a href="${process.env.DOMAIN}/user-verfiy/${hashToken}" style="${buttonStyle}">Reset Password</a>
+            <a href="${process.env.DOMAIN}/forget-password/${hashToken}" style="${buttonStyle}">Reset Password</a>
           </div>
           <p style="color: #333333; text-align: center;">If you did not request a password reset, please ignore this email.</p>
           <p style="color: #333333; text-align: center;">Cheers,<br>The Blogify Team</p>
