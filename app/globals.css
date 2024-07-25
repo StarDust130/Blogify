@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -60,14 +59,8 @@
   }
 }
 
-/* styles/globals.css */
-body {
-  overflow-x: hidden; /* Example setting */
-   overflow-y: auto;
-}
-
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -78,4 +71,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
