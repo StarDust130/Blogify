@@ -1,7 +1,5 @@
 import { connectDB } from "@/db/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-
-
 connectDB();
 
 export const GET = async (request: NextRequest, response: NextResponse) => {
