@@ -1,6 +1,7 @@
 import User from "@/models/userModel";
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
+import getEmailHtml from "./emailHtml";
 
 export const sendEmail = async ({ email, emailType, userId }: any) => {
   try {
@@ -34,7 +35,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       to: email,
       subject:
         emailType == "verify" ? "Verify your email" : "Reset your password",
-      html: "<p></p>",
+      html: getEmailHtml(emailType),
     };
 
     const mailResponse = await transporter.sendMail(mailOptions);
