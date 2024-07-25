@@ -1,4 +1,4 @@
-const getEmailHtml = (emailType: any) => {
+const getEmailHtml = (emailType: any, hashToken: any) => {
   const baseStyle = `
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -26,6 +26,11 @@ const getEmailHtml = (emailType: any) => {
     font-size: 16px;
     font-weight: bold;
     display: inline-block;
+    transition: background-color 0.3s ease;
+  `;
+
+  const buttonHoverStyle = `
+    background-color: #0056b3;
   `;
 
   if (emailType === "verify") {
@@ -35,7 +40,7 @@ const getEmailHtml = (emailType: any) => {
           <h2 style="color: #007bff; text-align: center;">Welcome to Blogify!</h2>
           <p style="color: #333333; text-align: center;">Thank you for signing up. Please verify your email address by clicking the button below:</p>
           <div style="text-align: center; margin: 20px 0;">
-            <a href="your-verification-link" style="${buttonStyle}">Verify Email</a>
+            <a href="${process.env.DOMAIN}/user-verfiy/${hashToken}" style="${buttonStyle}">Verify Email</a>
           </div>
           <p style="color: #333333; text-align: center;">If you did not create an account, no further action is required.</p>
           <p style="color: #333333; text-align: center;">Cheers,<br>The Blogify Team</p>
@@ -49,7 +54,7 @@ const getEmailHtml = (emailType: any) => {
           <h2 style="color: #007bff; text-align: center;">Reset Your Password</h2>
           <p style="color: #333333; text-align: center;">We received a request to reset your password. Click the button below to reset your password:</p>
           <div style="text-align: center; margin: 20px 0;">
-            <a href="your-reset-link" style="${buttonStyle}">Reset Password</a>
+            <a href="${process.env.DOMAIN}/user-verfiy/${hashToken}" style="${buttonStyle}">Reset Password</a>
           </div>
           <p style="color: #333333; text-align: center;">If you did not request a password reset, please ignore this email.</p>
           <p style="color: #333333; text-align: center;">Cheers,<br>The Blogify Team</p>
