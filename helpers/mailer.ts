@@ -1,16 +1,31 @@
+import User from "@/models/userModel";
 import nodemailer from "nodemailer";
+import bcryptjs from "bcryptjs";
 
 export const sendEmail = async ({ email, emailType, userId }: any) => {
   try {
-    //TODO: Implement the logic to send email
+    const hashToken = await bcryptjs.hash(userId.toString(), 10);
+
+    if (emailType == "verify") {
+      await User.findByIdAndUpdate(userId, {
+        verifiyToken: hashToken,
+        verifyTokenExpiry: Date.now() + 3600000, // 1 hour
+      });
+    } else if (emailType == "reset") {
+      await User.findByIdAndUpdate(userId, {
+        forgotPasswordToken: hashToken,
+        forgotPasswordTokenExpiry: Date.now() + 3600000, // 1 hour
+      });
+    } else {
+      throw new Error("Invalid email type");
+    }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
+      host: "sandbox.smtp.mailtrap.io",
+      port: 2525,
       auth: {
-        user: "maddison53@ethereal.email",
-        pass: "jn7jnAPss4f63QBp6D",
+        user: "67f0d74c9a8ba3",
+        pass: "1e21ff544aeb65",
       },
     });
 
@@ -19,7 +34,7 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       to: email,
       subject:
         emailType == "verify" ? "Verify your email" : "Reset your password",
-      html: "<b>Hello world?</b>",
+      html: "<p></p>",
     };
 
     const mailResponse = await transporter.sendMail(mailOptions);
