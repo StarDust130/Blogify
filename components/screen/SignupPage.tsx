@@ -1,11 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalTrigger,
-} from "../ui/animated-modal";
+import { Modal, ModalBody, ModalContent } from "../ui/animated-modal";
+import axios from "axios";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -25,11 +21,17 @@ import { Button } from "../ui/button";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import Image from "next/image";
-import { Camera } from "lucide-react";
+import { Camera, Loader, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
+import { handleError } from "@/helpers/ErrorMsg";
 
 const SignupPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const { toast } = useToast();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e: any) => {
     if (e.target.files && e.target.files[0]) {
@@ -50,11 +52,29 @@ const SignupPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  //! Handle Form Submit 🍀
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      const data = form.getValues();
+
+      await axios.post("/api/users/signup", data);
+
+      toast({
+        title: "Signup Success 🎉",
+        description: "You have successfully signed up.",
+      });
+
+      router.push("/blogs");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.error || "Something went wrong";
+      handleError(errorMessage);
+    } finally {
+      setLoading(false);
+      form.reset();
+    }
+  };
 
   return (
     <div className="  flex items-center justify-center">
@@ -178,7 +198,9 @@ const SignupPage = () => {
                       Login
                     </Link>
                   </div>
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">
+                    {loading ? <Loader className="animate-spin" /> : "Submit"}
+                  </Button>
                 </div>
               </form>
             </Form>

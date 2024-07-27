@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/elements/Header";
 import Footer from "@/components/elements/Footer";
 import { ThemeProvider } from "@/components/elements/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Merriweather({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           <main className="flex flex-col min-h-screen bg-white dark:bg-black">
             <Header />
             <div className="flex-grow">{children}</div>
+            <Toaster />
             <Footer />
           </main>
         </ThemeProvider>

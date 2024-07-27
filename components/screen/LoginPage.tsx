@@ -9,6 +9,8 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -24,34 +26,51 @@ import { Button } from "../ui/button";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import Link from "next/link";
+import { Loader } from "lucide-react";
+import { handleError } from "@/helpers/ErrorMsg";
+import axios from "axios";
 
 const LoginPage = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageChange = (e: any) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        setSelectedImage(event.target.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+  const { toast } = useToast();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      email: "",
+      usernameOrEmail: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  //! Handle Form Submit 🍀
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      const data = form.getValues();
+      console.log("Form Data:", data); // Log form data for debugging
+
+      const response = await axios.post("/api/users/login", data);
+
+      console.log("API Response:", response); // Log response for debugging
+
+      toast({
+        title: "Login Success 🎉",
+        description: "You have successfully logged in.",
+      });
+
+      router.push("/blogs");
+    } catch (error: any) {
+      console.log("Error:", error); // Log full error for debugging
+
+      const errorMessage =
+        error.response?.data?.error || error.message || "Something went wrong";
+      handleError(errorMessage);
+    } finally {
+      setLoading(false);
+      form.reset();
+    }
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -71,7 +90,7 @@ const LoginPage = () => {
               >
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="usernameOrEmail"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Username/Email</FormLabel>
@@ -104,7 +123,16 @@ const LoginPage = () => {
                       Sign Up
                     </Link>
                   </div>
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">
+                    {loading ? (
+                      <span className="flex justify-center gap-2">
+                        <Loader className="animate-spin mr-2" />
+                        Loading...
+                      </span>
+                    ) : (
+                      "Submit"
+                    )}
+                  </Button>
                 </div>
               </form>
             </Form>
