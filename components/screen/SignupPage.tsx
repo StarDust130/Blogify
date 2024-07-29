@@ -21,7 +21,6 @@ import { Camera, Loader, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
-import { handleError } from "@/helpers/ErrorMsg";
 import axios from "axios";
 
 const SignupPage = () => {
@@ -31,6 +30,7 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  //! Function to handle image change
   const handleImageChange = (e: any) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -41,6 +41,7 @@ const SignupPage = () => {
     }
   };
 
+  //! React Hook Form for Signup
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,9 +53,7 @@ const SignupPage = () => {
 
   const data = form.getValues();
 
-  // console.log("Form data:", data);
-
-  const onSubmit = async () => {
+  const SignupFormHandler = async () => {
     try {
       setLoading(true);
 
@@ -70,7 +69,11 @@ const SignupPage = () => {
       router.push("/blogs");
     } catch (error: any) {
       const errorMessage = error.message || "Something went wrong";
-      handleError(errorMessage);
+      toast({
+        title: "Signup Failed 😢",
+        description: errorMessage,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
       form.reset();
@@ -90,7 +93,7 @@ const SignupPage = () => {
             </h4>
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(SignupFormHandler)}
                 className="space-y-8"
               >
                 <FormItem className="flex flex-col items-center">
