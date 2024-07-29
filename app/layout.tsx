@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Merriweather } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/elements/Header";
-import Footer from "@/components/elements/Footer";
 import { ThemeProvider } from "@/components/elements/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -31,10 +29,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="flex flex-col min-h-screen bg-white dark:bg-black">
-            <Header />
             <div className="flex-grow">{children}</div>
             <Toaster />
-            <Footer />
           </main>
         </ThemeProvider>
       </body>
