@@ -51,27 +51,26 @@ const SignupPage = () => {
     },
   });
 
-  const data = form.getValues();
-
-  const SignupFormHandler = async () => {
+  const SignupFormHandler = async (data: z.infer<typeof signupForm>) => {
     try {
       setLoading(true);
 
       const response = await axios.post("/api/users/signup", data);
       console.log("Signup success", response.data);
-      router.push("/login");
 
       toast({
         title: "Signup Success 🎉",
         description: "You have successfully signed up.",
       });
 
-      router.push("/blogs");
+      router.push("/login");
     } catch (error: any) {
-      const errorMessage = error.message || "Something went wrong";
+      console.log(error);
+      const errMsg = error.response.data.error;
+
       toast({
         title: "Signup Failed 😢",
-        description: errorMessage,
+        description: errMsg,
         variant: "destructive",
       });
     } finally {
