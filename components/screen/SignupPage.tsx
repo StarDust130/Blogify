@@ -1,11 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Modal, ModalBody, ModalContent } from "../ui/animated-modal";
-import axios from "axios";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import {
   Form,
   FormControl,
@@ -16,22 +13,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "../ui/button";
 import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import Image from "next/image";
-import { Camera, Loader, Loader2 } from "lucide-react";
+import { Camera, Loader, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { handleError } from "@/helpers/ErrorMsg";
+import axios from "axios";
 
 const SignupPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleImageChange = (e: any) => {
     if (e.target.files && e.target.files[0]) {
@@ -52,13 +50,17 @@ const SignupPage = () => {
     },
   });
 
-  //! Handle Form Submit 🍀
+  const data = form.getValues();
+
+  // console.log("Form data:", data);
+
   const onSubmit = async () => {
     try {
       setLoading(true);
-      const data = form.getValues();
 
-      await axios.post("/api/users/signup", data);
+      const response = await axios.post("/api/users/signup", data);
+      console.log("Signup success", response.data);
+      router.push("/login");
 
       toast({
         title: "Signup Success 🎉",
@@ -67,8 +69,7 @@ const SignupPage = () => {
 
       router.push("/blogs");
     } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Something went wrong";
+      const errorMessage = error.message || "Something went wrong";
       handleError(errorMessage);
     } finally {
       setLoading(false);
@@ -77,13 +78,13 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="  flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <Modal>
         <ModalBody>
           <ModalContent>
             <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
               Sign Up to
-              <span className="px-1 mx-1 py-0.5 rounded-md bg-sky-100  dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
+              <span className="px-1 mx-1 py-0.5 rounded-md bg-sky-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
                 Blogify!
               </span>{" "}
             </h4>
@@ -95,7 +96,7 @@ const SignupPage = () => {
                 <FormItem className="flex flex-col items-center">
                   <FormLabel>Profile Picture</FormLabel>
                   <FormControl>
-                    <div className="relative w-32 h-32 flex  rounded-full overflow-hidden bg-gray-200">
+                    <div className="relative w-32 h-32 flex rounded-full overflow-hidden bg-gray-200">
                       <Input
                         type="file"
                         accept="image/*"
@@ -108,7 +109,8 @@ const SignupPage = () => {
                             src={selectedImage}
                             alt="Profile"
                             className="w-full h-full object-cover"
-                            layout="fill"
+                            width={200}
+                            height={200}
                           />
                         ) : (
                           <Image
@@ -170,7 +172,7 @@ const SignupPage = () => {
                       )}
                     />
                   </div>
-                  <div className="w-1/2 ">
+                  <div className="w-1/2 relative">
                     <FormField
                       control={form.control}
                       name="password"
@@ -178,11 +180,23 @@ const SignupPage = () => {
                         <FormItem>
                           <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input
-                              placeholder="********"
-                              {...field}
-                              type="text"
-                            />
+                            <div className="relative">
+                              <Input
+                                placeholder="********"
+                                {...field}
+                                type={showPassword ? "text" : "password"}
+                              />
+                              <div
+                                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                {showPassword ? (
+                                  <EyeOff size={20} color="gray" />
+                                ) : (
+                                  <Eye size={20} color="gray" />
+                                )}
+                              </div>
+                            </div>
                           </FormControl>
 
                           <FormMessage />
@@ -191,7 +205,7 @@ const SignupPage = () => {
                     />
                   </div>
                 </div>
-                <div className=" flex justify-between">
+                <div className="flex justify-between">
                   <div className="text-sm">
                     Already Have Account{" "}
                     <Link href={"/login"} className="text-blue-500">
