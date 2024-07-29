@@ -7,3 +7,10 @@ export const signupForm = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(4, { message: "Password is too short " }),
 });
+
+export const LoginForm = z.object({
+  usernameOrEmail: z
+    .string()
+    .min(2, { message: "Invalid username or email format" }),
+  password: z.string().min(4, { message: "Password is too short " }),
+});

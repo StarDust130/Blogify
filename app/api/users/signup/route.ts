@@ -21,7 +21,10 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
     }
 
     //! 2) Check if user already exists 🤔
-    const user = await User.find({username , email }).select("-password");
+    const user = await User.findOne({
+      $or: [{ username }, { email }],
+    }).select("-password");
+
     if (user) {
       return NextResponse.json(
         { error: "User already exists" },

@@ -9,8 +9,7 @@ connectDB();
 export const POST = async (request: NextRequest, response: NextResponse) => {
   try {
     const reqBody = await request.json();
-    const { username, email, password } = reqBody;
-    const usernameOrEmail = username || email;
+    const { usernameOrEmail, password } = reqBody;
 
     //! 1) Validate user input 🍒
     if (!usernameOrEmail || !password) {

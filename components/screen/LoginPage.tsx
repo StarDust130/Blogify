@@ -18,11 +18,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { Button } from "../ui/button";
-import { formSchema } from "@/lib/validation";
+import { LoginForm } from "@/lib/validation";
 import { z } from "zod";
 import Link from "next/link";
 import { Loader } from "lucide-react";
-import { handleError } from "@/helpers/ErrorMsg";
 import axios from "axios";
 
 const LoginPage = () => {
@@ -30,8 +29,8 @@ const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof LoginForm>>({
+    resolver: zodResolver(LoginForm),
     defaultValues: {
       usernameOrEmail: "",
       password: "",
@@ -39,10 +38,10 @@ const LoginPage = () => {
   });
 
   //! Handle Form Submit 🍀
-  const onSubmit = async () => {
+  const onSubmit = async (data: z.infer<typeof LoginForm>) => {
     try {
       setLoading(true);
-      const data = form.getValues();
+
       console.log("Form Data:", data); // Log form data for debugging
 
       const response = await axios.post("/api/users/login", data);
@@ -56,11 +55,14 @@ const LoginPage = () => {
 
       router.push("/blogs");
     } catch (error: any) {
-      console.log("Error:", error); // Log full error for debugging
+      console.log(error);
+      const errMsg = error.response.data.error;
 
-      const errorMessage =
-        error.response?.data?.error || error.message || "Something went wrong";
-      handleError(errorMessage);
+      toast({
+        title: "Signup Failed 😢",
+        description: errMsg,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
       form.reset();
@@ -120,10 +122,7 @@ const LoginPage = () => {
                   </div>
                   <Button type="submit">
                     {loading ? (
-                      <span className="flex justify-center gap-2">
-                        <Loader className="animate-spin mr-2" />
-                        Loading...
-                      </span>
+                      <Loader className="animate-spin mr-2" />
                     ) : (
                       "Submit"
                     )}
