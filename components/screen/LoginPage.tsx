@@ -1,11 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalTrigger,
-} from "../ui/animated-modal";
+import { Modal, ModalBody, ModalContent } from "../ui/animated-modal";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

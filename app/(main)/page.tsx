@@ -1,8 +1,10 @@
 import HomePage from "@/components/screen/HomePage";
 
 export default function Home() {
-  return <HomePage />
+  return <div>
+    <HomePage />
+  </div>
 }
 
 
-//Todo: Add Command for Search
+
