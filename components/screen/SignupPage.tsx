@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-import { formSchema } from "@/lib/validation";
+import { signupForm } from "@/lib/validation";
 import { z } from "zod";
 import Image from "next/image";
 import { Camera, Loader, Eye, EyeOff } from "lucide-react";
@@ -42,8 +42,8 @@ const SignupPage = () => {
   };
 
   //! React Hook Form for Signup
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signupForm>>({
+    resolver: zodResolver(signupForm),
     defaultValues: {
       username: "",
       email: "",
