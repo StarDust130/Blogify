@@ -3,16 +3,17 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { sendEmail } from "@/helpers/mailer";
+import crypto from "crypto"; // For generating verification token
 
 connectDB();
 
 export const POST = async (request: NextRequest, response: NextResponse) => {
   try {
-    //! Destructure request body 😸
+    // Destructure request body
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
 
-    //! 1) Validate user input 🍒
+    // Validate user input
     if (!email || !password || !username) {
       return NextResponse.json(
         { error: "Please enter all fields" },
@@ -20,7 +21,7 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
       );
     }
 
-    //! 2) Check if user already exists 🤔
+    // Check if user already exists
     const user = await User.findOne({
       $or: [{ username }, { email }],
     }).select("-password");
@@ -32,29 +33,35 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
       );
     }
 
-    //! 3.1) Hash user password 🔒
+    // Hash user password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    //! 3.2) Create new user 🎉
+    // Generate verification token and expiry date
+    const verifyToken = crypto.randomBytes(32).toString("hex");
+    const verifyTokenExpiry = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
+
+    // Create new user
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
+      verifyToken,
+      verifyTokenExpiry,
     });
 
-    //! 3.3) Save user to DB 🚀
+    // Save user to DB
     const saveUser = await newUser.save();
     console.log(saveUser);
 
-    //! 4) Send verification email 📧
+    // Send verification email
     await sendEmail({
       email,
       emailType: "verify",
-      userId: saveUser._id,
+      token: verifyToken, // Pass the token to the email helper
     });
 
-    //! 5) Return success response 🥳
+    // Return success response
     return NextResponse.json({
       msg: "User SignUp successfully",
       success: true,
