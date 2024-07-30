@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { SignUp } from "@clerk/nextjs";
 
 const SignupPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -80,150 +81,13 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <Modal>
-        <ModalBody>
-          <ModalContent>
-            <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-              Sign Up to
-              <span className="px-1 mx-1 py-0.5 rounded-md bg-sky-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
-                Blogify!
-              </span>{" "}
-            </h4>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(SignupFormHandler)}
-                className="space-y-8"
-              >
-                <FormItem className="flex flex-col items-center">
-                  <FormLabel>Profile Picture</FormLabel>
-                  <FormControl>
-                    <div className="relative w-32 h-32 flex rounded-full overflow-hidden bg-gray-200">
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        className="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        {selectedImage ? (
-                          <Image
-                            src={selectedImage}
-                            alt="Profile"
-                            className="w-full h-full object-cover"
-                            width={200}
-                            height={200}
-                          />
-                        ) : (
-                          <Image
-                            src="/rick.jpeg"
-                            alt="Profile Placeholder"
-                            className="w-full h-full object-cover"
-                            layout="fill"
-                          />
-                        )}
-                      </div>
-                      <div className="absolute bottom-2 right-3 z-10 bg-white p-1 cursor-pointer rounded-full shadow-lg">
-                        <Camera
-                          size={24}
-                          className="text-gray-700 hover:text-gray-900 transition-colors duration-300"
-                        />
-                      </div>
-                    </div>
-                  </FormControl>
-                  {!selectedImage && (
-                    <FormDescription>
-                      *This is a Placeholder Image. Please Select your Profile
-                      Picture.
-                    </FormDescription>
-                  )}
-
-                  <FormMessage />
-                </FormItem>
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Rick" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="flex justify-between items-center w-full space-x-4">
-                  <div className="w-1/2">
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="w-full"
-                              type="email"
-                              placeholder="rick@blogify.com"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/2 relative">
-                    <FormField
-                      control={form.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <div className="relative">
-                              <Input
-                                placeholder="********"
-                                {...field}
-                                type={showPassword ? "text" : "password"}
-                              />
-                              <div
-                                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                                onClick={() => setShowPassword(!showPassword)}
-                              >
-                                {showPassword ? (
-                                  <EyeOff size={20} color="gray" />
-                                ) : (
-                                  <Eye size={20} color="gray" />
-                                )}
-                              </div>
-                            </div>
-                          </FormControl>
-
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-between">
-                  <div className="text-sm">
-                    Already Have Account{" "}
-                    <Link href={"/login"} className="text-blue-500">
-                      Login
-                    </Link>
-                  </div>
-                  <Button type="submit">
-                    {loading ? <Loader className="animate-spin" /> : "Submit"}
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </ModalContent>
-        </ModalBody>
-      </Modal>
-    </div>
+    <Modal>
+      <ModalBody>
+        <ModalContent>
+          <SignUp />
+        </ModalContent>
+      </ModalBody>
+    </Modal>
   );
 };
 

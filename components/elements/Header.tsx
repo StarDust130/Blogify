@@ -7,6 +7,13 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { Menu, Search as SearchIcon } from "lucide-react";
 import Search from "./Search";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 import {
   DropdownMenu,
@@ -79,14 +86,21 @@ const Header = () => {
               <span className="font-light text-sm">K</span>
             </div>
           </div>
-          <Link href="/login">
-            <Button variant="ghost" className="transition">
-              Login
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button className="transition">Sign Up</Button>
-          </Link>
+
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
+          <SignedOut>
+            <Link href="/signin">
+              <Button variant="ghost" className="transition">
+                Login
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button className="transition">Sign Up</Button>
+            </Link>
+          </SignedOut>
           <ModeToggle />
         </div>
 
@@ -96,7 +110,7 @@ const Header = () => {
             className="mr-3"
             size={18}
           />
-          <Link href="/login">
+          <Link href="/signin">
             <Button variant="secondary" size={"sm"} className="transition">
               Login
             </Button>

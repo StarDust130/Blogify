@@ -3,6 +3,7 @@ import { Merriweather } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/elements/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Merriweather({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -20,20 +21,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="flex flex-col min-h-screen bg-white dark:bg-black">
-            <div className="flex-grow">{children}</div>
-            <Toaster />
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className} suppressHydrationWarning={true}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex flex-col min-h-screen bg-white dark:bg-black">
+              <div className="flex-grow">{children}</div>
+              <Toaster />
+            </main>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
