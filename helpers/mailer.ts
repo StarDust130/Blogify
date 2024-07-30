@@ -9,13 +9,17 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
     if (emailType == "verify") {
       await User.findByIdAndUpdate(userId, {
-        verifiyToken: hashToken,
-        verifyTokenExpiry: Date.now() + 3600000, // 1 hour
+        $set: {
+          verifiyToken: hashToken,
+          verifyTokenExpiry: Date.now() + 3600000, // 1 hour
+        },
       });
     } else if (emailType == "reset") {
       await User.findByIdAndUpdate(userId, {
-        forgotPasswordToken: hashToken,
-        forgotPasswordTokenExpiry: Date.now() + 3600000, // 1 hour
+        $set: {
+          forgotPasswordToken: hashToken,
+          forgotPasswordTokenExpiry: Date.now() + 3600000, // 1 hour
+        },
       });
     } else {
       throw new Error("Invalid email type");
